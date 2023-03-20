@@ -15,10 +15,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      initialRoute: "home_screen",
+      theme:
+          ThemeData.light().copyWith(scaffoldBackgroundColor: Colors.grey[300]),
+      initialRoute: "login_screen",
       routes: {
         "home_screen": (context) => const HomeScreen(),
         "login_screen": (context) => const LoginScreen(),
