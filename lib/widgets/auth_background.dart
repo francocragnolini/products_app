@@ -5,8 +5,8 @@ class AuthBackground extends StatelessWidget {
   const AuthBackground({super.key, required this.child});
   @override
   Widget build(BuildContext context) {
+    // ignore: sized_box_for_whitespace
     return Container(
-      // color: Colors.red,
       height: double.infinity,
       width: double.infinity,
       child: Stack(

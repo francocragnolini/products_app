@@ -66,6 +66,8 @@ class _LoginForm extends StatelessWidget {
   Widget build(BuildContext context) {
     final loginFormProvider = Provider.of<LoginFormProvider>(context);
 
+    // to manage the style of the form
+    // ignore: avoid_unnecessary_containers
     return Container(
       child: Form(
         autovalidateMode: AutovalidateMode.onUserInteraction,
