@@ -9,10 +9,10 @@ class Product {
     required this.price,
   });
 
-  final bool available;
-  final String name;
-  final String? picture;
-  final double price;
+  bool available;
+  String name;
+  String? picture;
+  double price;
   String? id;
 
   factory Product.fromJson(String str) => Product.fromMap(json.decode(str));
@@ -32,4 +32,13 @@ class Product {
         "picture": picture,
         "price": price,
       };
+
+  // crea una copia del Producto
+  Product copy() => Product(
+        available: available,
+        name: name,
+        picture: picture,
+        price: price,
+        id: id,
+      );
 }

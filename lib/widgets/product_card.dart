@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import '../models/product.dart';
@@ -23,7 +25,7 @@ class ProductCard extends StatelessWidget {
           alignment: Alignment.bottomLeft,
           children: [
             _BackgroundImage(
-              url: product.picture!,
+              url: product.picture,
             ),
             _ProductDetails(
               title: product.name,
@@ -158,10 +160,10 @@ class _ProductDetails extends StatelessWidget {
 }
 
 class _BackgroundImage extends StatelessWidget {
-  final String url;
+  final String? url;
 
   const _BackgroundImage({
-    required this.url,
+    this.url,
   });
 
   @override
@@ -170,15 +172,62 @@ class _BackgroundImage extends StatelessWidget {
       borderRadius: BorderRadius.circular(25),
       // ignore: sized_box_for_whitespace
       child: Container(
-        width: double.infinity,
-        height: 400,
-        //todo: fix productos cuando no hay imagen
-        child: FadeInImage(
-          placeholder: const AssetImage('assets/jar-loading.gif'),
-          image: NetworkImage(url),
-          fit: BoxFit.cover,
-        ),
-      ),
+          width: double.infinity,
+          height: 400,
+          //todo: fix productos cuando no hay imagen
+          //? si no hay una  NetworkImage mostrar la imagen:assets/no-image.png en assets
+          child: getImage(url)),
     );
   }
+
+  Widget getImage(String? picture) {
+    if (picture == null) {
+      return const Image(
+          image: AssetImage('assets/no-image.png'), fit: BoxFit.cover);
+    }
+    if (picture.startsWith('http')) {
+      return FadeInImage(
+        placeholder: const AssetImage('assets/jar-loading.gif'),
+        image: NetworkImage(url!),
+        fit: BoxFit.cover,
+      );
+    }
+    return Image.file(File(picture), fit: BoxFit.cover);
+  }
 }
+
+
+
+
+
+// class _BackgroundImage extends StatelessWidget {
+//   final String? url;
+
+//   const _BackgroundImage({
+//     this.url,
+//   });
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return ClipRRect(
+//       borderRadius: BorderRadius.circular(25),
+//       // ignore: sized_box_for_whitespace
+//       child: Container(
+//         width: double.infinity,
+//         height: 400,
+//         //todo: fix productos cuando no hay imagen
+//         //? si no hay una  NetworkImage mostrar la imagen:assets/no-image.png en assets
+//         child: url == null
+//             ? const Image(
+//                 image: AssetImage("assets/no-image.png"),
+//                 fit: BoxFit.cover,
+//               )
+//             : FadeInImage(
+//                 placeholder: const AssetImage('assets/jar-loading.gif'),
+//                 image: NetworkImage(url!),
+//                 fit: BoxFit.cover,
+//               ),
+//       ),
+//     );
+//   }
+// }

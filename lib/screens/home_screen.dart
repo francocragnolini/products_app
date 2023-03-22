@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:products_app/models/models.dart';
 import 'package:products_app/screens/screens.dart';
 import 'package:products_app/services/products_service.dart';
 import 'package:products_app/widgets/widgets.dart';
@@ -21,6 +22,11 @@ class HomeScreen extends StatelessWidget {
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () {
+              //! metodo copy para romper la referencia con el producto en la lista
+              //! cuando haces click sobre el producto el productsService.selectedProduct ya tiene
+              //! un porducto en memoria
+              productsService.selectedProduct =
+                  productsService.products[index].copy();
               Navigator.pushNamed(context, "product_screen");
             },
             child: ProductCard(
@@ -30,7 +36,13 @@ class HomeScreen extends StatelessWidget {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          //Todo: crear un nuevo producto
+          productsService.selectedProduct =
+              Product(available: false, name: "", price: 0);
+          //?
+          Navigator.pushNamed(context, 'product_screen');
+        },
         child: const Icon(Icons.add),
       ),
     );
