@@ -8,8 +8,8 @@ import 'package:provider/provider.dart';
 
 import '../ui/input_decoration.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatelessWidget {
+  const RegisterScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class LoginScreen extends StatelessWidget {
                       height: 10,
                     ),
                     Text(
-                      "Login",
+                      "Register",
                       style: Theme.of(context).textTheme.headline4,
                     ),
                     const SizedBox(
@@ -49,7 +49,7 @@ class LoginScreen extends StatelessWidget {
               ),
               TextButton(
                 onPressed: () =>
-                    Navigator.pushReplacementNamed(context, "register_screen"),
+                    Navigator.pushReplacementNamed(context, "login_screen"),
                 style: ButtonStyle(
                   shape: MaterialStateProperty.all(const StadiumBorder()),
                   overlayColor: MaterialStateProperty.all(
@@ -57,7 +57,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
                 child: const Text(
-                  "Crear una nueva cuenta",
+                  "¿Ya tienes una Cuenta?",
                   style: TextStyle(fontSize: 20, color: Colors.black87),
                 ),
               ),
@@ -79,6 +79,7 @@ class _LoginForm extends StatelessWidget {
   Widget build(BuildContext context) {
     final loginFormProvider = Provider.of<LoginFormProvider>(context);
     final navigator = Navigator.of(context);
+
     // to manage the style of the form
     // ignore: avoid_unnecessary_containers
     return Container(
@@ -132,24 +133,29 @@ class _LoginForm extends StatelessWidget {
               onPressed: loginFormProvider.isLoading
                   ? null
                   : () async {
+                      //? esconder el teclado despues de hacer el submit
                       FocusScope.of(context).unfocus();
 
+                      //? creando la instancia del provider
                       final authService =
                           Provider.of<AuthService>(context, listen: false);
 
+                      //? verifica que el formulario sea valido
                       if (!loginFormProvider.isValidForm()) return;
 
+                      //? comienza el loading
                       loginFormProvider.isLoading = true;
 
-                      final String? errorMessage = await authService.login(
-                          loginFormProvider.email, loginFormProvider.password);
+                      Future.delayed(const Duration(milliseconds: 200));
 
+                      //todo: validar si el register es correcto backend
+                      final String? errorMessage = await authService.createUser(
+                          loginFormProvider.email, loginFormProvider.password);
                       if (errorMessage == null) {
                         navigator.pushReplacementNamed("home_screen");
                       } else {
-                        print(errorMessage);
-                        NotificationsService.showSnackbar(errorMessage);
-
+                        // todo: mostrar error en pantalla
+                        log(errorMessage);
                         loginFormProvider.isLoading = false;
                       }
                     },

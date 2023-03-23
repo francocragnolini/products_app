@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -67,10 +69,10 @@ class _ProductScreenBody extends StatelessWidget {
                           source: ImageSource.camera, imageQuality: 100);
 
                       if (pickedFile == null) {
-                        print("No Selecciono Nada");
+                        log("No Selecciono Nada");
                         return;
                       }
-                      print("tenemos Imagen ${pickedFile.path}");
+                      log("tenemos Imagen ${pickedFile.path}");
                       productService
                           .updateSelectedProductImage(pickedFile.path);
 

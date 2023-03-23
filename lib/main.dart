@@ -16,8 +16,11 @@ class AppState extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
+          create: (_) => AuthService(),
+        ),
+        ChangeNotifierProvider(
           create: (_) => ProductsService(),
-        )
+        ),
       ],
       child: const MyApp(),
     );
@@ -39,11 +42,14 @@ class MyApp extends StatelessWidget {
         floatingActionButtonTheme: const FloatingActionButtonThemeData(
             backgroundColor: Colors.indigo, elevation: 0),
       ),
-      initialRoute: "home_screen",
+      initialRoute: "checking_screen",
+      scaffoldMessengerKey: NotificationsService.messengerKey,
       routes: {
         "home_screen": (context) => const HomeScreen(),
         "login_screen": (context) => const LoginScreen(),
         "product_screen": (context) => const ProductScreen(),
+        "register_screen": (context) => const RegisterScreen(),
+        "checking_screen": (context) => const CheckAuthScreen(),
       },
     );
   }

@@ -63,7 +63,7 @@ class ProductsService extends ChangeNotifier {
     final url = Uri.https(_baseUrl, "products/${product.id}.json");
     final response = await http.put(url, body: product.toJson());
     final decodedData = response.body;
-    print(decodedData);
+    log(decodedData);
 
     //todo:actualizar el listado de productos
     final index = products.indexWhere((element) => element.id == product.id);
@@ -77,7 +77,7 @@ class ProductsService extends ChangeNotifier {
     final response = await http.post(url, body: product.toJson());
 
     final decodedData = json.decode(response.body);
-    print(decodedData);
+    log(decodedData);
 
     //todo:actualizar el listado de productos
     product.id = decodedData['name'];
@@ -116,8 +116,8 @@ class ProductsService extends ChangeNotifier {
     final resp = await http.Response.fromStream(streamResponse);
 
     if (resp.statusCode != 200 && resp.statusCode != 201) {
-      print('algo salio mal');
-      print(resp.body);
+      log('algo salio mal');
+      log(resp.body);
       return null;
     }
 
