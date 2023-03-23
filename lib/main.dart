@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
         floatingActionButtonTheme: const FloatingActionButtonThemeData(
             backgroundColor: Colors.indigo, elevation: 0),
       ),
-      initialRoute: "checking_screen",
+      initialRoute: "login_screen",
       scaffoldMessengerKey: NotificationsService.messengerKey,
       routes: {
         "home_screen": (context) => const HomeScreen(),

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -16,6 +17,7 @@ class AuthService extends ChangeNotifier {
     final Map<String, dynamic> authData = {
       'email': email,
       'password': password,
+      'returnSecureToken': true,
     };
 
     final url =
@@ -38,6 +40,7 @@ class AuthService extends ChangeNotifier {
     final Map<String, dynamic> authData = {
       'email': email,
       'password': password,
+      'returnSecureToken': true,
     };
 
     final url = Uri.https(
@@ -53,7 +56,7 @@ class AuthService extends ChangeNotifier {
       // decodedResp['idToken'];
       return null;
     } else {
-      print(decodedResp['error']['message']);
+      log("AuthService Login : ${decodedResp['error']['message']}");
       return decodedResp['error']['message'];
     }
   }

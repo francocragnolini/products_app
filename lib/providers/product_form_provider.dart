@@ -17,9 +17,9 @@ class ProductFormProvider extends ChangeNotifier {
   }
 
   bool isValidForm() {
-    print('ProductFormProvider: $product.name');
-    print('ProductFormProvider: $product.price');
-    print('ProductFormProvider: $product.available');
+    log('ProductFormProvider: $product.name');
+    log('ProductFormProvider: $product.price');
+    log('ProductFormProvider: $product.available');
 
     return productFormKey.currentState?.validate() ?? false;
   }
