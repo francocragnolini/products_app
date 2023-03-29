@@ -87,7 +87,6 @@ class ProductsService extends ChangeNotifier {
     final response = await http.post(url, body: product.toJson());
 
     final decodedData = json.decode(response.body);
-    log(decodedData);
 
     //todo:actualizar el listado de productos
     product.id = decodedData['name'];
